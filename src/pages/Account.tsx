@@ -1,9 +1,40 @@
-import { useUser, UserButton } from "@clerk/clerk-react";
+import { useAuth, useUser, UserButton } from "@clerk/clerk-react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { apiFetchWithToken } from "@/lib/api";
+
+type BackendIdentity = {
+  id: string;
+  clerk_id: string;
+  email?: string;
+};
 
 export default function Account() {
   const { user } = useUser();
+  const { getToken, isSignedIn } = useAuth();
+  const [backendIdentity, setBackendIdentity] = useState<BackendIdentity | null>(null);
+
+  useEffect(() => {
+    if (!isSignedIn) return;
+    let cancelled = false;
+
+    (async () => {
+      const token = await getToken();
+      if (!token || cancelled) return;
+
+      const me = await apiFetchWithToken<BackendIdentity>("/api/v1/me", token);
+      if (!cancelled) {
+        setBackendIdentity(me);
+      }
+    })().catch((error) => {
+      console.error("Failed to fetch backend identity:", error);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isSignedIn, getToken]);
 
   return (
     <main className="min-h-screen bg-background px-6 py-12">
@@ -23,6 +54,7 @@ export default function Account() {
           <CardContent className="space-y-2 text-sm">
             <p>Email: {user?.primaryEmailAddress?.emailAddress || "-"}</p>
             <p>Clerk ID: {user?.id || "-"}</p>
+            <p>Backend User ID: {backendIdentity?.id || "Syncing..."}</p>
           </CardContent>
         </Card>
 

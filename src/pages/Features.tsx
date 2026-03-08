@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
+import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Logo } from "@/components/Logo";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { getUser } from "@/lib/auth";
 import {
   MessageSquare,
   Code2,
@@ -167,11 +166,7 @@ const features = [
 ];
 
 export default function Features() {
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    setUser(getUser());
-  }, []);
+  const { user } = useUser();
   return (
     <div className="min-h-screen bg-background overflow-hidden">
       {/* Floating Background */}
@@ -193,37 +188,32 @@ export default function Features() {
           </Link>
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            {user ? (
+            <SignedOut>
+              <Link to="/sign-up">
+                <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/5">
+                  Sign Up
+                </Button>
+              </Link>
+              <Link to="/sign-in">
+                <Button variant="ghost" size="sm">
+                  Sign In
+                </Button>
+              </Link>
+            </SignedOut>
+            <SignedIn>
               <div className="flex items-center gap-4 pl-2 border-l border-border/50">
                 <div className="hidden lg:flex flex-col items-end leading-tight">
                   <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Account</span>
-                  <span className="text-sm font-bold text-foreground">{user.username}</span>
+                  <span className="text-sm font-bold text-foreground">{user?.username || user?.firstName || "User"}</span>
                 </div>
-                <Link to="/dashboard">
-                  <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 h-9">
-                    Go to Dashboard
+                <Link to="/downloads">
+                  <Button size="sm" className="bg-gradient-primary hover:opacity-90 h-9">
+                    Downloads
                   </Button>
                 </Link>
+                <UserButton afterSignOutUrl="/" />
               </div>
-            ) : (
-              <>
-                <Link to="/signup">
-                  <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/5">
-                    Sign Up
-                  </Button>
-                </Link>
-                <Link to="/signin">
-                  <Button variant="ghost" size="sm">
-                    Sign In
-                  </Button>
-                </Link>
-                <Link to="/dashboard">
-                  <Button size="sm" className="bg-gradient-primary hover:opacity-90">
-                    Launch App
-                  </Button>
-                </Link>
-              </>
-            )}
+            </SignedIn>
           </div>
         </div>
       </motion.header>
@@ -332,15 +322,15 @@ export default function Features() {
               Join data teams who are saving hours every week with InsightOps.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/signup">
+              <Link to="/sign-up">
                 <Button size="lg" className="h-14 px-10 text-lg bg-gradient-primary hover:opacity-90 glow-primary">
                   Start Free Trial
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
-              <Link to="/dashboard">
+              <Link to="/pricing">
                 <Button variant="outline" size="lg" className="h-14 px-10 text-lg border-primary/30 hover:bg-primary/5">
-                  View Live Demo
+                  View Pricing
                 </Button>
               </Link>
             </div>

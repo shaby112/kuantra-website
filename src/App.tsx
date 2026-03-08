@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { BackendUserSync } from "@/components/BackendUserSync";
 import Landing from "./pages/Landing";
 import Features from "./pages/Features";
 import NotFound from "./pages/NotFound";
@@ -29,6 +30,7 @@ function ProtectedRoute() {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <BackendUserSync />
     <TooltipProvider>
       <Toaster />
       <Sonner />

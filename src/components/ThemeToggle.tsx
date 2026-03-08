@@ -2,8 +2,16 @@ import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
+const THEME_STORAGE_KEY = "insightops-theme";
+
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (savedTheme === "dark") return true;
+    if (savedTheme === "light") return false;
+    return false;
+  });
 
   useEffect(() => {
     const root = document.documentElement;
@@ -12,6 +20,7 @@ export function ThemeToggle() {
     } else {
       root.classList.remove("dark");
     }
+    window.localStorage.setItem(THEME_STORAGE_KEY, isDark ? "dark" : "light");
   }, [isDark]);
 
   return (

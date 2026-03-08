@@ -38,9 +38,14 @@ async function parseJsonSafe(res: Response): Promise<any> {
   }
 }
 
+type ApiFetchInit = RequestInit & {
+  auth?: boolean;
+  token?: string | null;
+};
+
 export async function apiFetch<T>(
   path: string,
-  init?: RequestInit & { auth?: boolean }
+  init?: ApiFetchInit
 ): Promise<T> {
   const url = path.startsWith("http") ? path : `${API_BASE_URL}${path}`;
   const headers = new Headers(init?.headers || {});
@@ -48,9 +53,8 @@ export async function apiFetch<T>(
     headers.set("Content-Type", "application/json");
   }
 
-  if (init?.auth) {
-    const token = localStorage.getItem("access_token");
-    if (token) headers.set("Authorization", `Bearer ${token}`);
+  if (init?.token) {
+    headers.set("Authorization", `Bearer ${init.token}`);
   }
 
   const res = await fetch(url, { ...init, headers });
@@ -61,4 +65,12 @@ export async function apiFetch<T>(
     throw new ApiError(String(msg), res.status, data);
   }
   return (await parseJsonSafe(res)) as T;
+}
+
+export async function apiFetchWithToken<T>(
+  path: string,
+  token: string,
+  init?: RequestInit,
+): Promise<T> {
+  return apiFetch<T>(path, { ...init, token });
 }
