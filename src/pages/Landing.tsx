@@ -103,18 +103,21 @@ export default function Landing() {
         <section className="relative isolate overflow-hidden">
           <div className="absolute inset-0 z-0">
             <PrismBackground
-              animationType="hover"
-              timeScale={0.45}
+              animationType="rotate"
+              timeScale={0.2}
               height={3.5}
               baseWidth={5.4}
-              scale={3.8}
-              hueShift={0.18}
-              colorFrequency={1.08}
-              noise={0.35}
-              glow={1.15}
-              bloom={1.1}
-              hoverStrength={1.5}
-              inertia={0.06}
+              scale={3.25}
+              hueShift={0.12}
+              colorFrequency={1}
+              noise={0.08}
+              glow={0.85}
+              bloom={0.9}
+              quality="low"
+              renderScale={0.58}
+              maxFps={20}
+              disableOnMobile
+              startWhenIdle
               suspendWhenOffscreen
             />
           </div>
@@ -242,4 +245,3 @@ export default function Landing() {
     </div>
   );
 }
-

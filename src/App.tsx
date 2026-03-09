@@ -1,3 +1,4 @@
+import { Suspense, lazy, type LazyExoticComponent } from "react";
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -5,15 +6,16 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { BackendUserSync } from "@/components/BackendUserSync";
-import Landing from "./pages/Landing";
-import Features from "./pages/Features";
-import NotFound from "./pages/NotFound";
-import Pricing from "./pages/Pricing";
-import Downloads from "./pages/Downloads";
-import Account from "./pages/Account";
-import Install from "./pages/Install";
-import SignInPage from "./pages/SignInPage";
-import SignUpPage from "./pages/SignUpPage";
+
+const Landing = lazy(() => import("./pages/Landing"));
+const Features = lazy(() => import("./pages/Features"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const Install = lazy(() => import("./pages/Install"));
+const SignInPage = lazy(() => import("./pages/SignInPage"));
+const SignUpPage = lazy(() => import("./pages/SignUpPage"));
+const Downloads = lazy(() => import("./pages/Downloads"));
+const Account = lazy(() => import("./pages/Account"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
@@ -30,6 +32,22 @@ function ProtectedRoute() {
   );
 }
 
+function RouteSkeleton() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[#050914] text-white/70">
+      Loading...
+    </div>
+  );
+}
+
+function Page({ component: Component }: { component: LazyExoticComponent<() => JSX.Element> }) {
+  return (
+    <Suspense fallback={<RouteSkeleton />}>
+      <Component />
+    </Suspense>
+  );
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <BackendUserSync />
@@ -38,22 +56,22 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/features" element={<Features />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/install" element={<Install />} />
+          <Route path="/" element={<Page component={Landing} />} />
+          <Route path="/features" element={<Page component={Features} />} />
+          <Route path="/pricing" element={<Page component={Pricing} />} />
+          <Route path="/install" element={<Page component={Install} />} />
 
-          <Route path="/sign-in/*" element={<SignInPage />} />
-          <Route path="/sign-up/*" element={<SignUpPage />} />
-          <Route path="/signin/*" element={<SignInPage />} />
-          <Route path="/signup/*" element={<SignUpPage />} />
+          <Route path="/sign-in/*" element={<Page component={SignInPage} />} />
+          <Route path="/sign-up/*" element={<Page component={SignUpPage} />} />
+          <Route path="/signin/*" element={<Page component={SignInPage} />} />
+          <Route path="/signup/*" element={<Page component={SignUpPage} />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="/downloads" element={<Downloads />} />
-            <Route path="/account" element={<Account />} />
+            <Route path="/downloads" element={<Page component={Downloads} />} />
+            <Route path="/account" element={<Page component={Account} />} />
           </Route>
 
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Page component={NotFound} />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
