@@ -25,6 +25,7 @@ export default function Pricing() {
 
             <nav className="hidden items-center gap-8 text-sm text-white/55 md:flex">
               <Link to="/features" className="hover:text-white transition-colors duration-200">Product</Link>
+              <Link to="/blog" className="hover:text-white transition-colors duration-200">Blog</Link>
               <Link to="/install" className="hover:text-white transition-colors duration-200">Install</Link>
               <Link to="/pricing" className="text-white font-medium">Pricing</Link>
             </nav>
@@ -68,7 +69,10 @@ export default function Pricing() {
               <Logo size="sm" showText={false} />
               <span>InsightOps · Data Intel. &amp; Modeling</span>
             </div>
-            <Link to="/" className="hover:text-white/60 transition-colors">Back to home</Link>
+            <div className="flex items-center gap-5">
+              <Link to="/" className="hover:text-white/60 transition-colors">Back to home</Link>
+              <Link to="/blog" className="hover:text-white/60 transition-colors">Blog</Link>
+            </div>
           </div>
         </footer>
       </main>
