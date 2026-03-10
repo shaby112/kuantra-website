@@ -171,8 +171,8 @@ export default function Features() {
   return (
     <div className="min-h-screen bg-background overflow-hidden">
       <Helmet>
-        <title>Features | InsightOps</title>
-        <meta name="description" content="Explore the full feature set of InsightOps. Chat-to-data, semantic modeling, fast DuckDB engine, and more." />
+        <title>Features | Kuantra</title>
+        <meta name="description" content="Explore the full feature set of Kuantra. Chat-to-data, semantic modeling, fast DuckDB engine, and more." />
       </Helmet>
 
       {/* Floating Background */}
@@ -244,7 +244,7 @@ export default function Features() {
               <span className="text-gradient-primary">Master Your Data</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              InsightOps combines natural language querying with a professional SQL editor,
+              Kuantra combines natural language querying with a professional SQL editor,
               giving both business users and technical teams the power to work with data safely and efficiently.
             </p>
           </motion.div>
@@ -325,7 +325,7 @@ export default function Features() {
               <span className="text-gradient-primary"> Data Workflow?</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-10">
-              Join data teams who are saving hours every week with InsightOps.
+              Join data teams who are saving hours every week with Kuantra.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/sign-up">
@@ -350,7 +350,7 @@ export default function Features() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <Logo size="sm" />
             <p className="text-sm text-muted-foreground">
-              © 2024 InsightOps. All rights reserved.
+              © 2024 Kuantra. All rights reserved.
             </p>
           </div>
         </div>

@@ -28,7 +28,7 @@ export default function BlogPost() {
   return (
     <div className="min-h-screen bg-[#050914] text-white pt-24 pb-24 px-6">
       <Helmet>
-        <title>{post.meta.title} | InsightOps</title>
+        <title>{post.meta.title} | Kuantra</title>
         <meta name="description" content={post.meta.description} />
         <meta property="og:title" content={post.meta.title} />
         <meta property="og:description" content={post.meta.description} />

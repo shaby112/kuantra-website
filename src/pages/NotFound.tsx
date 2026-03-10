@@ -12,7 +12,7 @@ const NotFound = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted">
             <Helmet>
-        <title>404 Not Found | InsightOps</title>
+        <title>404 Not Found | Kuantra</title>
         <meta name="description" content="The page you are looking for could not be found." />
       </Helmet>
       <div className="text-center">

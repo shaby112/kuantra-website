@@ -45,8 +45,8 @@ export default function SignIn() {
   return (
     <div className="min-h-screen bg-background flex">
       <Helmet>
-        <title>Sign In | InsightOps</title>
-        <meta name="description" content="Sign in to your InsightOps account to access your dashboards and data models." />
+        <title>Sign In | Kuantra</title>
+        <meta name="description" content="Sign in to your Kuantra account to access your dashboards and data models." />
       </Helmet>
 
       <div className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 relative z-10">

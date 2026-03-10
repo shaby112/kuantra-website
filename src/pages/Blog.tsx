@@ -11,15 +11,15 @@ export default function Blog() {
   return (
     <div className="min-h-screen bg-[#050914] text-white pt-24 pb-12 px-6">
       <Helmet>
-        <title>Blog | InsightOps</title>
-        <meta name="description" content="Engineering updates, product news, and analytical deep-dives from the InsightOps team." />
-        <meta property="og:title" content="Blog | InsightOps" />
+        <title>Blog | Kuantra</title>
+        <meta name="description" content="Engineering updates, product news, and analytical deep-dives from the Kuantra team." />
+        <meta property="og:title" content="Blog | Kuantra" />
       </Helmet>
       
       <div className="max-w-4xl mx-auto">
         <header className="mb-16">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">
-            InsightOps Blog
+            Kuantra Blog
           </h1>
           <p className="text-xl text-white/60">
             Thoughts, updates, and engineering deep-dives from our team.

@@ -20,7 +20,7 @@ export default function Pricing() {
           <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
             <Link to="/" className="flex items-center gap-3">
               <Logo size="sm" showText={false} />
-              <span className="text-[17px] font-semibold tracking-tight text-white">InsightOps</span>
+              <span className="text-[17px] font-semibold tracking-tight text-white">Kuantra</span>
             </Link>
 
             <nav className="hidden items-center gap-8 text-sm text-white/55 md:flex">
@@ -67,7 +67,7 @@ export default function Pricing() {
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 text-xs text-white/30 sm:flex-row">
             <div className="flex items-center gap-2">
               <Logo size="sm" showText={false} />
-              <span>InsightOps · Data Intel. &amp; Modeling</span>
+              <span>Kuantra · Data Intel. &amp; Modeling</span>
             </div>
             <div className="flex items-center gap-5">
               <Link to="/" className="hover:text-white/60 transition-colors">Back to home</Link>
