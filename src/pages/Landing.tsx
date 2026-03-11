@@ -69,8 +69,8 @@ export default function Landing() {
               transition={{ duration: 0.45 }}
               className="max-w-4xl"
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-white/80">
-                <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+              <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium text-zinc-300 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
                 {user ? `Welcome back, ${user.firstName || user.username || "Operator"}` : "Kuantra for modern data teams"}
               </span>
 
@@ -113,9 +113,9 @@ export default function Landing() {
                   <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: "radial-gradient(circle at 20% 0%, rgba(139,92,246,0.14), transparent 45%)" }} />
                   <div className="relative">
                     <div className="flex items-start justify-between gap-4">
-                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-black/30">
-                        <item.icon className="h-5 w-5 text-violet-400" />
-                      </span>
+                      <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 backdrop-blur-md text-emerald-400">
+                        <item.icon className="h-5 w-5" />
+                      </div>
                       <span className="text-xs uppercase tracking-[0.22em] text-white/50" style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
                         {item.metric}
                       </span>
