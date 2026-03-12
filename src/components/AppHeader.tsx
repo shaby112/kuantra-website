@@ -25,9 +25,9 @@ export function AppHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#050914]/95 supports-[backdrop-filter]:bg-[#050914]/85 backdrop-blur-xl font-sans">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
-        <Link to="/" className="group flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-1.5 transition-colors hover:border-white/20 hover:bg-white/[0.06]">
-          <Logo size="sm" showText={false} className="drop-shadow-[0_0_10px_rgba(167,139,250,0.35)]" />
-          <span className="text-[17px] font-semibold tracking-[0.01em] text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.65)]">Kuantra</span>
+        <Link to="/" className="flex items-center gap-3.5 transition-opacity hover:opacity-90">
+          <Logo size="md" showText={false} className="drop-shadow-[0_0_12px_rgba(52,211,153,0.35)]" />
+          <span className="text-[20px] font-semibold tracking-[0.01em] text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.75)]">Kuantra</span>
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm md:flex">
