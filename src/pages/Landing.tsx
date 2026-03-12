@@ -66,7 +66,7 @@ export default function Landing() {
           fontFamily: "Geist, Inter, ui-sans-serif, system-ui, sans-serif",
         }}
       >
-        <section className="relative overflow-hidden border-b border-white/10">
+        <section className="relative border-b border-white/10">
           <div className="hero-glow pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(139,92,246,0.20),transparent_38%),radial-gradient(circle_at_80%_0%,rgba(99,102,241,0.14),transparent_30%)]" />
           <div className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:56px_56px]" />
 

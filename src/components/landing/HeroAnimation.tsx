@@ -3,7 +3,7 @@ import { Database, Terminal, BarChart2 } from "lucide-react";
 
 export function HeroAnimation() {
   return (
-    <div className="relative w-full max-w-lg mx-auto md:max-w-none md:w-[500px] h-[350px] rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-xl shadow-2xl overflow-hidden flex flex-col">
+    <div className="relative w-full max-w-lg mx-auto md:max-w-none md:w-[500px] h-[340px] rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-xl shadow-2xl overflow-hidden flex flex-col">
       {/* Fake window header */}
       <div className="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
         <div className="flex gap-2">
