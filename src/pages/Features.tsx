@@ -263,7 +263,7 @@ export default function Features() {
       <footer className="border-t border-white/10 px-6 py-10">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
           <Logo size="sm" />
-          <p className="text-sm text-white/45">© 2024 Kuantra. All rights reserved.</p>
+          <p className="text-base text-white/60">© 2026 Kuantra. All rights reserved.</p>
         </div>
       </footer>
     </div>

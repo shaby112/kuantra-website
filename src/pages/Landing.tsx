@@ -189,10 +189,10 @@ export default function Landing() {
         )}
 
         <footer className="border-t border-white/10 py-8">
-          <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-6 text-xs text-white/40 sm:flex-row">
-            <div className="flex items-center gap-2">
+          <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-6 text-sm text-white/55 sm:flex-row">
+            <div className="flex items-center gap-2.5">
               <Logo size="sm" showText={false} />
-              <span>Kuantra</span>
+              <span className="font-medium">© 2026 Kuantra</span>
             </div>
             <div className="flex items-center gap-5">
               <Link to="/pricing" className="transition-colors hover:text-white/75">Pricing</Link>

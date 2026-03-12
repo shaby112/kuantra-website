@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { SignedIn, SignedOut, useUser, UserButton } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { Logo } from "@/components/Logo";
 
 const clerkUserButtonAppearance = {
@@ -48,7 +47,6 @@ export function AppHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <ThemeToggle />
           <SignedOut>
             <Link to="/sign-in">
               <Button
