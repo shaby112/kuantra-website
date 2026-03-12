@@ -19,6 +19,7 @@ const SignInPage = lazy(() => import("./pages/SignInPage"));
 const SignUpPage = lazy(() => import("./pages/SignUpPage"));
 const Downloads = lazy(() => import("./pages/Downloads"));
 const Account = lazy(() => import("./pages/Account"));
+const Auth = lazy(() => import("./pages/Auth"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -72,6 +73,7 @@ const App = () => (
               <AppHeader />
               <Routes>
             <Route path="/" element={<Page component={Landing} />} />
+            <Route path="/auth" element={<Page component={Auth} />} />
             <Route path="/features" element={<Page component={Features} />} />
             <Route path="/pricing" element={<Page component={Pricing} />} />
             <Route path="/install" element={<Page component={Install} />} />
