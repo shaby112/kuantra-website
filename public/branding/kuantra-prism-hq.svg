@@ -1,18 +1,18 @@
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="prismA" x1="164" y1="112" x2="860" y2="868" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#C4B5FD"/>
-      <stop offset="0.55" stop-color="#8B5CF6"/>
-      <stop offset="1" stop-color="#10B981"/>
+      <stop offset="0" stop-color="#7FFFD4"/>
+      <stop offset="0.55" stop-color="#00E599"/>
+      <stop offset="1" stop-color="#0F766E"/>
     </linearGradient>
     <linearGradient id="prismB" x1="816" y1="196" x2="420" y2="658" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#DDD6FE"/>
-      <stop offset="0.6" stop-color="#A78BFA"/>
-      <stop offset="1" stop-color="#6D28D9"/>
+      <stop offset="0" stop-color="#D1FAE5"/>
+      <stop offset="0.6" stop-color="#14B8A6"/>
+      <stop offset="1" stop-color="#0F172A"/>
     </linearGradient>
     <linearGradient id="prismC" x1="194" y1="782" x2="658" y2="236" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#6D28D9"/>
-      <stop offset="0.55" stop-color="#8B5CF6"/>
+      <stop offset="0" stop-color="#1F2937"/>
+      <stop offset="0.55" stop-color="#0EA5A4"/>
       <stop offset="1" stop-color="#34D399"/>
     </linearGradient>
     <filter id="prismGlow" x="40" y="40" width="944" height="944" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
