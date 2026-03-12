@@ -59,18 +59,38 @@ export function HeroAnimation() {
         >
           <div className="absolute top-3 left-4 z-10 inline-flex items-center gap-2 rounded-md border border-emerald-400/20 bg-[#0f131f]/85 px-2.5 py-1 text-[11px] font-medium text-emerald-300 backdrop-blur-sm">
             <BarChart2 className="h-3 w-3 text-violet-300" />
-            Execution complete · 23ms
+            Query result · 1.2ms
           </div>
-          <div className="h-full pt-9 flex items-end justify-between gap-2">
-            {[40, 70, 45, 90, 65, 100].map((height, i) => (
-              <motion.div
-                key={i}
-                initial={{ height: 0 }}
-                animate={{ height: `${height}%` }}
-                transition={{ duration: 0.5, delay: 2.2 + i * 0.1, type: "spring", stiffness: 100 }}
-                className="w-full bg-gradient-to-t from-indigo-500/50 to-purple-400/80 rounded-t-sm"
-              />
-            ))}
+
+          <div className="grid h-full grid-cols-2 gap-4 pt-9">
+            <motion.div
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.35, delay: 2.25 }}
+              className="rounded-md border border-white/10 bg-black/35 p-2 font-mono text-[11px]"
+            >
+              <div className="mb-1 flex items-center justify-between text-white/50">
+                <span>month</span>
+                <span>revenue</span>
+              </div>
+              <div className="space-y-1 text-white/80">
+                <div className="flex items-center justify-between"><span>Jan</span><span>$84k</span></div>
+                <div className="flex items-center justify-between"><span>Feb</span><span>$96k</span></div>
+                <div className="flex items-center justify-between"><span>Mar</span><span className="text-emerald-300">$112k</span></div>
+              </div>
+            </motion.div>
+
+            <div className="flex items-end justify-between gap-1.5 rounded-md border border-white/10 bg-black/20 p-2">
+              {[38, 56, 72, 88, 76, 94].map((height, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ height: 0 }}
+                  animate={{ height: `${height}%` }}
+                  transition={{ duration: 0.45, delay: 2.3 + i * 0.08, type: "spring", stiffness: 90 }}
+                  className="w-full rounded-t-sm bg-gradient-to-t from-indigo-500/55 via-purple-400/70 to-emerald-300/70"
+                />
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>
