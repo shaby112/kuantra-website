@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { Calendar, User } from "lucide-react";
 
 export default function Blog() {
-  const posts = useMemo(() => getAllPosts(), []);
+  const posts = useMemo(() => getAllPosts().filter((post) => !post.meta.draft), []);
 
   return (
     <div className="min-h-screen text-white pt-24 pb-12 px-6">

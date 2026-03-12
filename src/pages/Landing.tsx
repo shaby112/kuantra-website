@@ -65,7 +65,7 @@ export default function Landing() {
         }}
       >
         <section className="relative overflow-hidden border-b border-white/10">
-          <div className="hero-glow pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(139,92,246,0.20),transparent_38%),radial-gradient(circle_at_80%_0%,rgba(34,211,238,0.14),transparent_30%)]" />
+          <div className="hero-glow pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(139,92,246,0.20),transparent_38%),radial-gradient(circle_at_80%_0%,rgba(99,102,241,0.14),transparent_30%)]" />
           <div className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:56px_56px]" />
 
           <div className="relative mx-auto flex w-full max-w-7xl flex-col px-6 pb-16 pt-24 md:pt-28">
@@ -76,7 +76,7 @@ export default function Landing() {
               className="max-w-4xl"
             >
               <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium text-zinc-300 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
-                <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.75)]"></span>
+                <span className="h-2 w-2 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(167,139,250,0.75)]"></span>
                 {user ? `Welcome back, ${user.firstName || user.username || "Operator"}` : "Kuantra for modern data teams"}
               </span>
 
@@ -92,7 +92,7 @@ export default function Landing() {
                 <Link to="/install">
                   <Button
                     size="lg"
-                    className="relative h-12 overflow-hidden rounded-lg border border-white/10 bg-white/5 px-8 py-3 font-medium text-white backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-cyan-500/30 before:opacity-50 before:blur-md"
+                    className="relative h-12 overflow-hidden rounded-lg border border-white/10 bg-white/5 px-8 py-3 font-medium text-white backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 hover:border-white/20 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/30 before:via-purple-500/30 before:to-violet-500/30 before:opacity-50 before:blur-md"
                   >
                     Deploy via Docker
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -119,7 +119,7 @@ export default function Landing() {
                   <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: "radial-gradient(circle at 20% 0%, rgba(139,92,246,0.14), transparent 45%)" }} />
                   <div className="relative">
                     <div className="flex items-start justify-between gap-4">
-                      <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 backdrop-blur-md text-cyan-400">
+                      <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 backdrop-blur-md text-violet-300">
                         <item.icon className="h-5 w-5" />
                       </div>
                       <span className="text-xs uppercase tracking-[0.22em] text-white/50" style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
@@ -165,7 +165,7 @@ export default function Landing() {
                       {post.meta.author}
                     </span>
                   </div>
-                  <h3 className="text-xl font-semibold leading-tight text-white transition-colors group-hover:text-[#22d3ee]">
+                  <h3 className="text-xl font-semibold leading-tight text-white transition-colors group-hover:text-violet-300">
                     {post.meta.title}
                   </h3>
                   <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-white/60">{post.meta.description}</p>
