@@ -1,11 +1,27 @@
-import { Link, useLocation } from "react-router-dom";
-import { useAuth, UserButton } from "@clerk/clerk-react";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ChevronDown, LogOut, UserCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { clearAuth, getUser, isAuthenticated } from "@/lib/auth";
 
 export function AppHeader() {
   const location = useLocation();
-  const { isLoaded, isSignedIn } = useAuth();
+  const navigate = useNavigate();
+  const [signedIn, setSignedIn] = useState(false);
+
+  useEffect(() => {
+    const syncAuth = () => setSignedIn(isAuthenticated());
+    syncAuth();
+    window.addEventListener("storage", syncAuth);
+    return () => window.removeEventListener("storage", syncAuth);
+  }, []);
 
   const signedOutNav = [
     { name: "Product", path: "/features" },
@@ -20,8 +36,14 @@ export function AppHeader() {
     { name: "Support", path: "/account" },
   ];
 
-  const signedIn = isLoaded && isSignedIn;
   const navItems = signedIn ? signedInNav : signedOutNav;
+  const user = getUser();
+
+  const handleLogout = () => {
+    clearAuth();
+    setSignedIn(false);
+    navigate("/");
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#050914]/95 font-sans backdrop-blur-xl supports-[backdrop-filter]:bg-[#050914]/85">
@@ -61,15 +83,24 @@ export function AppHeader() {
                   Account / License Portal
                 </Button>
               </Link>
-              <UserButton
-                afterSignOutUrl="/"
-                appearance={{
-                  elements: {
-                    avatarBox: "h-8 w-8 ring-2 ring-teal-400/30",
-                    userButtonTrigger: "focus:shadow-none",
-                  },
-                }}
-              />
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="text-white/80 hover:bg-white/10 hover:text-white">
+                    <UserCircle2 className="mr-1 h-4 w-4" />
+                    {user?.username || "Account"}
+                    <ChevronDown className="ml-1 h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48 border-white/10 bg-[#0a1127] text-white">
+                  <DropdownMenuItem onClick={() => navigate("/account")}>Account</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/dashboard")}>License Portal</DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </>
           ) : (
             <>

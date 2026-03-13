@@ -5,7 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { BackendUserSync } from "@/components/BackendUserSync";
 import { AppHeader } from "@/components/AppHeader";
 
 const Landing = lazy(() => import("./pages/Landing"));
@@ -25,7 +24,6 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const queryClient = new QueryClient();
 
 function ProtectedRoute() {
-  // Mock protected route for dev/staging auth flow
   return <Outlet />;
 }
 
@@ -48,7 +46,6 @@ function Page({ component: Component }: { component: LazyExoticComponent<() => J
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
-      <BackendUserSync />
       <TooltipProvider>
         <Toaster />
         <Sonner />
@@ -64,33 +61,33 @@ const App = () => (
             <div className="relative z-10">
               <AppHeader />
               <Routes>
-            <Route path="/" element={<Page component={Landing} />} />
-            <Route path="/auth" element={<Page component={Auth} />} />
-            <Route path="/features" element={<Page component={Features} />} />
-            <Route path="/pricing" element={<Page component={Pricing} />} />
-            <Route path="/install" element={<Page component={Install} />} />
-            <Route path="/blog" element={<Page component={Blog} />} />
-            <Route path="/blog/:slug" element={<Page component={BlogPost} />} />
+                <Route path="/" element={<Page component={Landing} />} />
+                <Route path="/auth" element={<Page component={Auth} />} />
+                <Route path="/features" element={<Page component={Features} />} />
+                <Route path="/pricing" element={<Page component={Pricing} />} />
+                <Route path="/install" element={<Page component={Install} />} />
+                <Route path="/blog" element={<Page component={Blog} />} />
+                <Route path="/blog/:slug" element={<Page component={BlogPost} />} />
 
-            <Route path="/sign-in/*" element={<Page component={SignInPage} />} />
-          <Route path="/sign-up/*" element={<Page component={SignUpPage} />} />
-          <Route path="/signin/*" element={<Page component={SignInPage} />} />
-          <Route path="/signup/*" element={<Page component={SignUpPage} />} />
+                <Route path="/sign-in/*" element={<Page component={SignInPage} />} />
+                <Route path="/sign-up/*" element={<Page component={SignUpPage} />} />
+                <Route path="/signin/*" element={<Page component={SignInPage} />} />
+                <Route path="/signup/*" element={<Page component={SignUpPage} />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route path="/downloads" element={<Page component={Downloads} />} />
-            <Route path="/account" element={<Page component={Account} />} />
-            <Route path="/dashboard" element={<Page component={Dashboard} />} />
-            <Route path="/license" element={<Page component={Dashboard} />} />
-          </Route>
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/downloads" element={<Page component={Downloads} />} />
+                  <Route path="/account" element={<Page component={Account} />} />
+                  <Route path="/dashboard" element={<Page component={Dashboard} />} />
+                  <Route path="/license" element={<Page component={Dashboard} />} />
+                </Route>
 
-          <Route path="*" element={<Page component={NotFound} />} />
-        </Routes>
+                <Route path="*" element={<Page component={NotFound} />} />
+              </Routes>
             </div>
           </div>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
   </HelmetProvider>
 );
 
