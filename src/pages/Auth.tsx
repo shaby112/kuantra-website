@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, ArrowRight, Building2, CheckCircle2, Mail } from "lucide-react";
+import { AlertCircle, ArrowRight, Building2, CheckCircle2, Mail, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -36,6 +36,7 @@ export default function Auth() {
   const [authRoute, setAuthRoute] = useState<AuthRoute | null>(null);
   const [submittedEmail, setSubmittedEmail] = useState<string>("");
   const [magicLinkStatus, setMagicLinkStatus] = useState<string>("");
+  const [magicLinkStatusType, setMagicLinkStatusType] = useState<"success" | "error" | null>(null);
 
   const form = useForm<AuthFormValues>({
     resolver: zodResolver(authSchema),
@@ -52,6 +53,7 @@ export default function Auth() {
     setSubmittedEmail(data.email.trim().toLowerCase());
     setAuthRoute(resolveAuthRoute(data.email));
     setMagicLinkStatus("");
+    setMagicLinkStatusType(null);
   };
 
   const handleSendMagicLink = async () => {
@@ -68,11 +70,14 @@ export default function Auth() {
       const result = await response.json();
       if (response.ok) {
         setMagicLinkStatus(result.message || "Magic link dispatched. Check your inbox.");
+        setMagicLinkStatusType("success");
       } else {
         setMagicLinkStatus(result.error || "Failed to send magic link.");
+        setMagicLinkStatusType("error");
       }
     } catch {
       setMagicLinkStatus("Failed to send magic link. Please check your connection.");
+      setMagicLinkStatusType("error");
     } finally {
       setIsSendingMagicLink(false);
       // Keep payload visible to support QA validation.
@@ -141,8 +146,18 @@ export default function Auth() {
               {isSendingMagicLink ? "Sending..." : "Send Magic Link"}
             </Button>
             {magicLinkStatus && (
-              <div className="mt-2 flex items-center gap-2 rounded-md border border-emerald-400/25 bg-emerald-400/10 px-3 py-2 text-sm text-emerald-200">
-                <CheckCircle2 className="h-4 w-4" />
+              <div
+                className={`mt-2 flex items-center gap-2 rounded-md px-3 py-2 text-sm ${
+                  magicLinkStatusType === "error"
+                    ? "border border-red-400/30 bg-red-500/10 text-red-200"
+                    : "border border-emerald-400/25 bg-emerald-400/10 text-emerald-200"
+                }`}
+              >
+                {magicLinkStatusType === "error" ? (
+                  <XCircle className="h-4 w-4" />
+                ) : (
+                  <CheckCircle2 className="h-4 w-4" />
+                )}
                 <span>{magicLinkStatus}</span>
               </div>
             )}
