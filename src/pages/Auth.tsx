@@ -117,7 +117,7 @@ export default function Auth() {
 
           <Button
             type="submit"
-            className="h-12 w-full bg-white text-black font-medium transition-all hover:bg-white/90"
+            className="h-12 w-full border border-white/10 bg-gradient-to-r from-teal-400 via-emerald-400 to-violet-400 font-semibold text-[#041312] shadow-[0_10px_30px_rgba(16,185,129,0.28)] transition-all hover:brightness-105"
             disabled={isLoading}
           >
             {isLoading ? "Checking..." : "Continue"}
@@ -125,12 +125,15 @@ export default function Auth() {
         </form>
 
         {authRoute === "magic-link-choice" && (
-          <div className="space-y-3 rounded-xl border border-white/10 bg-black/20 p-4">
-            <Button className="h-11 w-full border border-white/20 bg-white/5 text-white hover:bg-white/10" variant="ghost">
+          <div className="space-y-3 rounded-xl border border-white/10 bg-black/30 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+            <Button
+              className="h-12 w-full justify-center rounded-lg border border-white/20 bg-white/[0.04] text-white/90 hover:bg-white/[0.08]"
+              variant="ghost"
+            >
               Continue with Google
             </Button>
             <Button
-              className="h-11 w-full bg-emerald-500/90 text-black hover:bg-emerald-400"
+              className="h-12 w-full justify-center rounded-lg border border-teal-300/40 bg-gradient-to-r from-teal-400 via-emerald-400 to-violet-400 font-semibold text-[#041312] shadow-[0_10px_30px_rgba(16,185,129,0.30)] hover:brightness-105"
               onClick={handleSendMagicLink}
               disabled={isSendingMagicLink}
             >
@@ -138,7 +141,7 @@ export default function Auth() {
               {isSendingMagicLink ? "Sending..." : "Send Magic Link"}
             </Button>
             {magicLinkStatus && (
-              <div className="mt-2 flex items-center gap-2 text-sm text-emerald-300">
+              <div className="mt-2 flex items-center gap-2 rounded-md border border-emerald-400/25 bg-emerald-400/10 px-3 py-2 text-sm text-emerald-200">
                 <CheckCircle2 className="h-4 w-4" />
                 <span>{magicLinkStatus}</span>
               </div>
