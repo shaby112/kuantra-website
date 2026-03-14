@@ -128,6 +128,7 @@ export default function Landing() {
               ))}
             </motion.div>
           </div>
+          </div>
         </section>
 
         {latestPosts.length > 0 && (
