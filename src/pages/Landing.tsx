@@ -113,25 +113,6 @@ export default function Landing() {
               ))}
             </motion.div>
 
-            {/* View container for screen recording */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.12 }}
-              className="mt-24 mb-16 relative"
-            >
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-white/5 via-white/10 to-white/5 opacity-50 blur-lg" />
-              <div className="relative aspect-video w-full rounded-2xl border border-white/10 bg-black/40 shadow-2xl overflow-hidden ring-1 ring-white/10 backdrop-blur-xl flex items-center justify-center">
-                {/* Placeholder for 90-second screen recording */}
-                <span className="text-white/40 font-medium">90-second Product Demo (Video Placeholder)</span>
-                {/* 
-                  When you have the video, uncomment and use this structure:
-                  <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-                    <source src="/your-demo.mp4" type="video/mp4" />
-                  </video>
-                */}
-              </div>
-            </motion.div>
           </div>
         </section>
 
