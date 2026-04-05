@@ -12,6 +12,7 @@ const Features = lazy(() => import("./pages/Features"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const Waitlist = lazy(() => import("./pages/Waitlist"));
+const BlogAdmin = lazy(() => import("./pages/BlogAdmin"));
 
 const queryClient = new QueryClient();
 
@@ -53,6 +54,7 @@ const App = () => (
                 <Route path="/blog" element={<Page component={Blog} />} />
                 <Route path="/blog/:slug" element={<Page component={BlogPost} />} />
                 <Route path="/waitlist" element={<Page component={Waitlist} />} />
+                <Route path="/blog/publish" element={<Page component={BlogAdmin} />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>
