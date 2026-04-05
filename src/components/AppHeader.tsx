@@ -10,15 +10,7 @@ export function AppHeader() {
     { name: "Blog", path: "/blog" },
   ];
 
-  const scrollToWaitlist = (e: React.MouseEvent) => {
-    if (location.pathname === "/") {
-      const form = document.getElementById("waitlist-form");
-      if (form) {
-        form.focus();
-        form.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }
-  };
+
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#050914]/95 font-sans backdrop-blur-xl supports-[backdrop-filter]:bg-[#050914]/85">
@@ -51,24 +43,14 @@ export function AppHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          {location.pathname === "/" ? (
+          <Link to="/waitlist">
             <Button
-              onClick={scrollToWaitlist}
               size="sm"
               className="relative overflow-hidden border-0 bg-transparent px-5 font-medium text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/40 before:via-purple-500/40 before:to-emerald-500/40 before:opacity-70 before:blur-sm"
             >
               Join Waitlist
             </Button>
-          ) : (
-            <Link to="/">
-               <Button
-                size="sm"
-                className="relative overflow-hidden border-0 bg-transparent px-5 font-medium text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/40 before:via-purple-500/40 before:to-emerald-500/40 before:opacity-70 before:blur-sm"
-              >
-                Join Waitlist
-              </Button>
-            </Link>
-          )}
+          </Link>
         </div>
       </div>
     </header>

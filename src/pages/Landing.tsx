@@ -5,7 +5,9 @@ import { Logo } from "@/components/Logo";
 import { Card } from "@/components/ui/card";
 import { HeroAnimation } from "@/components/landing/HeroAnimation";
 import { FoundersLetter } from "@/components/landing/FoundersLetter";
-import { WaitlistForm } from "@/components/landing/WaitlistForm";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { BenchmarkTable } from "@/components/landing/BenchmarkTable";
 
 const features = [
@@ -70,7 +72,17 @@ export default function Landing() {
                   Stop fighting dbt and waiting on slow JVM engines. Kuantra connects directly to your database and delivers instant AI Text-to-SQL dashboards via DuckDB.
                 </p>
 
-                <WaitlistForm />
+                <div className="mt-8">
+                  <Link to="/waitlist">
+                    <Button
+                      size="lg"
+                      className="relative overflow-hidden rounded-lg border-0 bg-transparent px-6 py-3 font-medium text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all hover:bg-white/10 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/40 before:via-purple-500/40 before:to-emerald-500/40 before:opacity-70 before:blur-sm"
+                    >
+                      Join Waitlist
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
                 
               </motion.div>
               

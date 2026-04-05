@@ -11,6 +11,7 @@ const Landing = lazy(() => import("./pages/Landing"));
 const Features = lazy(() => import("./pages/Features"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
+const Waitlist = lazy(() => import("./pages/Waitlist"));
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ const App = () => (
                 <Route path="/features" element={<Page component={Features} />} />
                 <Route path="/blog" element={<Page component={Blog} />} />
                 <Route path="/blog/:slug" element={<Page component={BlogPost} />} />
+                <Route path="/waitlist" element={<Page component={Waitlist} />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>
