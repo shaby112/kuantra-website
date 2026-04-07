@@ -1,4 +1,4 @@
-import { getSupabaseAdmin, requireAdminToken } from "./_supabase";
+import { requireAdminToken, supabaseRest } from "./_supabase-rest";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method Not Allowed" });
@@ -14,23 +14,29 @@ export default async function handler(req, res) {
   }
 
   const bucket = process.env.SUPABASE_BLOG_BUCKET || "blog-images";
-  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseUrl = process.env.SUPABASE_URL?.replace(/\/$/, "");
   if (!supabaseUrl) return res.status(500).json({ error: "Supabase URL not configured" });
 
   try {
-    const supabase = getSupabaseAdmin();
     const safeName = String(fileName).toLowerCase().replace(/[^a-z0-9._-]/g, "-");
     const ext = safeName.includes(".") ? safeName.split(".").pop() : "png";
     const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
 
     const buffer = Buffer.from(dataBase64, "base64");
 
-    const { error } = await supabase.storage.from(bucket).upload(path, buffer, {
-      contentType: mimeType,
-      upsert: false,
+    const response = await supabaseRest(`/storage/v1/object/${bucket}/${path}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": mimeType,
+        "x-upsert": "false",
+      },
+      body: buffer,
     });
 
-    if (error) return res.status(500).json({ error: error.message });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      return res.status(response.status).json({ error: data?.message || data?.error || "Unable to upload image" });
+    }
 
     const publicUrl = `${supabaseUrl}/storage/v1/object/public/${bucket}/${path}`;
     return res.status(200).json({ ok: true, path: publicUrl });

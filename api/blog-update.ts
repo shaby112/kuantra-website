@@ -1,4 +1,4 @@
-import { getSupabaseAdmin, requireAdminToken } from "./_supabase";
+import { requireAdminToken, supabaseRest } from "./_supabase-rest";
 
 function sanitizeSlug(value = "") {
   return value
@@ -22,28 +22,32 @@ export default async function handler(req, res) {
   if (!finalSlug) return res.status(400).json({ error: "Invalid slug" });
 
   try {
-    const supabase = getSupabaseAdmin();
-    const postDate = date || new Date().toISOString().slice(0, 10);
-
-    const { data, error } = await supabase
-      .from("blog_posts")
-      .update({
+    const response = await supabaseRest(`/rest/v1/blog_posts?slug=eq.${encodeURIComponent(finalSlug)}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Prefer: "return=representation",
+      },
+      body: JSON.stringify({
         title,
         description,
         author,
         content,
-        date: postDate,
+        date: date || new Date().toISOString().slice(0, 10),
         og_image: ogImage || null,
         updated_at: new Date().toISOString(),
-      })
-      .eq("slug", finalSlug)
-      .select("slug")
-      .single();
+      }),
+    });
 
-    if (error) return res.status(500).json({ error: error.message });
-    if (!data) return res.status(404).json({ error: `Post not found for slug '${finalSlug}'` });
+    const data = await response.json().catch(() => []);
+    if (!response.ok) {
+      return res.status(response.status).json({ error: data?.message || data?.error || "Unable to update post" });
+    }
 
-    return res.status(200).json({ ok: true, slug: data.slug, url: `/blog/${data.slug}` });
+    const updated = Array.isArray(data) ? data[0] : data;
+    if (!updated?.slug) return res.status(404).json({ error: `Post not found for slug '${finalSlug}'` });
+
+    return res.status(200).json({ ok: true, slug: updated.slug, url: `/blog/${updated.slug}` });
   } catch {
     return res.status(500).json({ error: "Unable to update post" });
   }

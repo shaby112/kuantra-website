@@ -1,4 +1,4 @@
-import { getSupabaseAdmin, requireAdminToken } from "./_supabase";
+import { requireAdminToken, supabaseRest } from "./_supabase-rest";
 
 function sanitizeSlug(value = "") {
   return value
@@ -22,32 +22,35 @@ export default async function handler(req, res) {
   if (!finalSlug) return res.status(400).json({ error: "Invalid slug" });
 
   try {
-    const supabase = getSupabaseAdmin();
-    const postDate = date || new Date().toISOString().slice(0, 10);
-
-    const { data, error } = await supabase
-      .from("blog_posts")
-      .insert({
+    const response = await supabaseRest("/rest/v1/blog_posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Prefer: "return=representation",
+      },
+      body: JSON.stringify({
         slug: finalSlug,
         title,
         description,
         author,
         content,
-        date: postDate,
+        date: date || new Date().toISOString().slice(0, 10),
         og_image: ogImage || null,
         draft: false,
-      })
-      .select("slug")
-      .single();
+      }),
+    });
 
-    if (error) {
-      if (String(error.code) === "23505") {
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const msg = data?.message || data?.error || "Unable to publish post";
+      if (String(msg).toLowerCase().includes("duplicate") || String(msg).includes("23505")) {
         return res.status(409).json({ error: `A post already exists for slug '${finalSlug}'` });
       }
-      return res.status(500).json({ error: error.message });
+      return res.status(response.status).json({ error: msg });
     }
 
-    return res.status(200).json({ ok: true, slug: data.slug, url: `/blog/${data.slug}` });
+    const created = Array.isArray(data) ? data[0] : data;
+    return res.status(200).json({ ok: true, slug: created.slug || finalSlug, url: `/blog/${created.slug || finalSlug}` });
   } catch {
     return res.status(500).json({ error: "Unable to publish post" });
   }
