@@ -24,14 +24,26 @@ const benefits = [
   },
 ];
 
+async function parseJsonSafe(res: Response) {
+  const text = await res.text();
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch {
+    throw new Error(text || `Request failed (${res.status})`);
+  }
+}
+
 export default function Waitlist() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [businessName, setBusinessName] = useState("");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!firstName || !lastName || !businessName || !email) return;
 
     setStatus("loading");
     setError("");
@@ -42,16 +54,19 @@ export default function Waitlist() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ firstName, lastName, businessName, email }),
       });
 
-      const data = await res.json();
+      const data = await parseJsonSafe(res);
 
       if (!res.ok) {
         throw new Error(data?.error || "Unable to join waitlist right now.");
       }
 
       setStatus("success");
+      setFirstName("");
+      setLastName("");
+      setBusinessName("");
       setEmail("");
     } catch (err: any) {
       setStatus("error");
@@ -82,21 +97,48 @@ export default function Waitlist() {
               <span className="text-sm font-medium">You’re on the waitlist. We’ll reach out soon.</span>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="mt-8">
-              <div className="group relative flex flex-col gap-3 rounded-xl bg-white/5 p-1.5 ring-1 ring-white/10 transition-all focus-within:bg-white/10 focus-within:ring-white/20 sm:flex-row sm:items-center">
+            <form onSubmit={handleSubmit} className="mt-8 space-y-3">
+              <div className="grid gap-3 md:grid-cols-2">
+                <Input
+                  placeholder="First name"
+                  required
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  disabled={status === "loading"}
+                  className="h-12 border-white/10 bg-white/5 px-4 text-white placeholder:text-white/40"
+                />
+                <Input
+                  placeholder="Last name"
+                  required
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  disabled={status === "loading"}
+                  className="h-12 border-white/10 bg-white/5 px-4 text-white placeholder:text-white/40"
+                />
+                <Input
+                  placeholder="Business name"
+                  required
+                  value={businessName}
+                  onChange={(e) => setBusinessName(e.target.value)}
+                  disabled={status === "loading"}
+                  className="h-12 border-white/10 bg-white/5 px-4 text-white placeholder:text-white/40 md:col-span-2"
+                />
                 <Input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="Business email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={status === "loading"}
-                  className="h-12 border-0 bg-transparent px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
+                  className="h-12 border-white/10 bg-white/5 px-4 text-white placeholder:text-white/40 md:col-span-2"
                 />
+              </div>
+
+              <div className="pt-1">
                 <Button
                   type="submit"
-                  disabled={status === "loading" || !email}
-                  className="relative h-10 shrink-0 overflow-hidden rounded-lg bg-transparent px-5 font-medium text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all disabled:opacity-50 sm:ml-2 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/40 before:via-purple-500/40 before:to-emerald-500/40 before:opacity-70 before:blur-sm"
+                  disabled={status === "loading" || !firstName || !lastName || !businessName || !email}
+                  className="relative h-11 shrink-0 overflow-hidden rounded-lg bg-transparent px-5 font-medium text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all disabled:opacity-50 before:absolute before:-inset-1 before:-z-10 before:bg-gradient-to-r before:from-indigo-500/40 before:via-purple-500/40 before:to-emerald-500/40 before:opacity-70 before:blur-sm"
                 >
                   <span className="relative flex items-center gap-2">
                     {status === "loading" ? (
@@ -111,9 +153,7 @@ export default function Waitlist() {
                 </Button>
               </div>
 
-              {status === "error" && (
-                <p className="mt-3 text-sm text-red-300">{error}</p>
-              )}
+              {status === "error" && <p className="mt-3 text-sm text-red-300">{error}</p>}
 
               <p className="mt-3 flex items-center gap-1.5 text-xs font-medium text-white/45">
                 <Sparkles className="h-3 w-3 text-purple-400" />
