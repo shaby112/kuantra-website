@@ -90,6 +90,17 @@ export default function BlogPost() {
               {post.meta.author}
             </span>
           </div>
+
+          {post.meta.ogImage && (
+            <div className="mt-8 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
+              <img
+                src={post.meta.ogImage}
+                alt={post.meta.title}
+                className="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </div>
+          )}
         </header>
         
         {/* Tailwind Typography plugin classes for rendering markdown elegantly */}
