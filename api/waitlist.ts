@@ -55,7 +55,10 @@ export default async function handler(req, res) {
     const loopsData = await loopsRes.json().catch(() => ({}));
 
     if (!loopsRes.ok) {
-      const message = loopsData?.message || loopsData?.error || "Failed to join waitlist.";
+      const rawMessage = String(loopsData?.message || loopsData?.error || "Failed to join waitlist.");
+      const message = /already\s+in\s+your\s+audience/i.test(rawMessage)
+        ? "Email already registered."
+        : rawMessage;
       return res.status(502).json({ error: message });
     }
 
