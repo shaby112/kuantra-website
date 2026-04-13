@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Zap, Shield, Database } from "lucide-react";
+import { Zap, Shield, Database, Plus } from "lucide-react";
+import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import { Logo } from "@/components/Logo";
 import { Card } from "@/components/ui/card";
@@ -27,6 +28,34 @@ const features = [
     body: "Connect your DB and start querying without dbt/warehouse ceremony.",
     icon: Database,
     metric: "Minutes, not weeks",
+  },
+];
+
+const faqs = [
+  {
+    question: "Is my company’s data safe with Kuantra?",
+    answer:
+      "Absolutely. Kuantra is a self-hosted BI platform, so your data stays on your infrastructure. Our Docker-based deployment gives you private analytics and secure data analysis without forcing sensitive data into a third-party BI cloud.",
+  },
+  {
+    question: "What makes Kuantra dashboards and queries so fast?",
+    answer:
+      "Kuantra is engineered for high-performance BI with a DuckDB-native analytics engine that delivers real-time, sub-second query performance. This keeps dashboards responsive and removes the lag common in traditional BI tools.",
+  },
+  {
+    question: "How does Kuantra AI work, and what about BYOK or local models?",
+    answer:
+      "Kuantra uses our in-house model, Kuantra AI, to provide fast and accurate text-to-SQL results. We are actively implementing Bring Your Own Key (BYOK) and local Ollama integration. For BYOK flows, only database schema metadata like column names is sent to the model, never row-level data.",
+  },
+  {
+    question: "When can I start testing Kuantra?",
+    answer:
+      "We are launching the Kuantra beta very soon. Join the waitlist now to be one of the first teams to get access, onboard early, and help shape upcoming releases.",
+  },
+  {
+    question: "What data connectors does Kuantra support?",
+    answer:
+      "Our initial release includes core connectors for popular databases and warehouses, and we are actively adding more native data connectors based on user demand and feedback.",
   },
 ];
 
@@ -131,6 +160,37 @@ export default function Landing() {
         <BenchmarkTable />
 
         <FoundersLetter />
+
+        <section className="border-t border-white/10 py-20">
+          <div className="mx-auto w-full max-w-4xl px-6">
+            <div className="mb-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200/80">FAQ</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-4xl">Common questions</h2>
+            </div>
+
+            <AccordionPrimitive.Root type="single" collapsible className="rounded-2xl border border-white/10 bg-white/[0.02] px-6">
+              {faqs.map((faq, index) => (
+                <AccordionPrimitive.Item
+                  key={faq.question}
+                  value={`faq-${index}`}
+                  className="border-b border-white/10 last:border-b-0"
+                >
+                  <AccordionPrimitive.Header>
+                    <AccordionPrimitive.Trigger className="group flex w-full items-center justify-between gap-4 py-5 text-left">
+                      <span className="text-base font-medium text-white">{faq.question}</span>
+                      <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/5">
+                        <Plus className="h-4 w-4 text-white/80 transition-transform duration-300 group-data-[state=open]:rotate-45" />
+                      </span>
+                    </AccordionPrimitive.Trigger>
+                  </AccordionPrimitive.Header>
+                  <AccordionPrimitive.Content className="overflow-hidden text-sm leading-relaxed text-white/70 transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+                    <div className="pb-5 pr-12">{faq.answer}</div>
+                  </AccordionPrimitive.Content>
+                </AccordionPrimitive.Item>
+              ))}
+            </AccordionPrimitive.Root>
+          </div>
+        </section>
 
         <footer className="border-t border-white/10 py-8">
           <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-6 text-sm text-white/55 sm:flex-row">
